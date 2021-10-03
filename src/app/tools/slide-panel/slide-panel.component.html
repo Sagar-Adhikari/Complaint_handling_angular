@@ -1,0 +1,15 @@
+<div class="panes" [ngClass]="{'panes-horizontal': activeSlide ==='horizontal', 'panes-vertical': activeSlide==='vertical'}"  [@slide]="activePane" (@slide.start)="animStart($event)"
+    (@slide.done)="animEnd($event)">
+    <div fxFlex style="width: 100%;">
+        <div class="lr-button-container" *ngIf="isFirstView">
+            <button class="slide-button" mat-mini-fab *ngIf="showNextButton" (click)="buttonClick()"> =></button>
+        </div>
+        <ng-content select="[firstPane]" *ngIf="isFirstView"></ng-content>
+    </div>
+    <div fxFlex style="width: 100%;">
+        <div class="lr-button-container" *ngIf="isLastView">
+            <button class="slide-button" mat-mini-fab *ngIf="showPreviousButton" (click)="buttonClick()">x</button>
+        </div>
+        <ng-content select="[lastPane]" *ngIf="isLastView"></ng-content>
+    </div>
+</div> 

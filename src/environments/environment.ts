@@ -1,0 +1,16 @@
+export const environment = {
+  production: false,
+  api: 'http://103.198.9.118:4004/',
+  icon_image_path: 'http://103.198.9.118:4004/images/files/'
+
+  //api: 'http://localhost:4004/',
+};
+
+/*
+ * For easier debugging in development mode, you can import the following file
+ * to ignore zone related error stack frames such as `zone.run`, `zoneDelegate.invokeTask`.
+ *
+ * This import should be commented out in production mode because it will have a negative impact
+ * on performance if an error is thrown.
+ */
+// import 'zone.js/dist/zone-error';  // Included with Angular CLI.

@@ -1,0 +1,74 @@
+<form #formData="ngForm" class="complain-form" novalidate [formGroup]="complainForm"
+    (ngSubmit)="onSubmit(complainForm)">
+    <div class="flex-row">
+        <mat-form-field class="item">
+            <mat-select #sp autofocus="true" placeholder="Service Provider" formControlName="serviceProviderId"
+                (selectionChange)="serviceProviderChanged()">
+                <mat-option *ngFor="let item of serviceProviderList" [value]="item.id">
+                    {{item.name}}
+                </mat-option>
+
+            </mat-select>
+            <mat-error>Select Service Provider from list.</mat-error>
+            <mat-hint>Select Service Provider from list.</mat-hint>
+        </mat-form-field>
+    </div>
+
+    <div class="flex-row">
+        <mat-form-field class="item">
+            <mat-select placeholder="Complain Category" formControlName="categoryId"
+                (selectionChange)="categoryChanged()">
+                <mat-option *ngFor="let item of categoryList" [value]="item.id">
+                    {{item.category}}
+                </mat-option>
+
+            </mat-select>
+            <mat-error>Select Complain category from list.</mat-error>
+            <mat-hint>Select Complain category from list.</mat-hint>
+        </mat-form-field>
+    </div>
+
+    <div class="flex-row" *ngIf="!spFieldShow">
+        <mat-form-field class="item">
+            <input matInput placeholder={{lblMobileOrUserId}} autocomplete="off" formControlName="mobileOrUserId" />
+            <mat-error>{{lblMobileOrUserHint}}</mat-error>
+            <mat-hint>{{lblMobileOrUserHint}}</mat-hint>
+        </mat-form-field>
+    </div>
+
+    <div class="flex-row" *ngIf="!spFieldShow">
+        <mat-form-field class="item">
+            <input matInput placeholder="Service Provider Ticket No" autocomplete="off"
+                formControlName="serviceProviderTicketNo" />
+            <mat-error>Enter Service Provider Ticket No</mat-error>
+            <mat-hint>Enter issue ticket no provided by Service Provider</mat-hint>
+        </mat-form-field>
+    </div>
+
+    <div class="flex-row">
+        <mat-form-field class="item">
+            <mat-label>Complain</mat-label>
+            <textarea matInput placeholder="Add details of your complain" autocomplete="off" formControlName="complain"
+                [matTextareaAutosize]></textarea>
+            <mat-error>Enter your complain.</mat-error>
+            <mat-hint>Enter your complain.</mat-hint>
+        </mat-form-field>
+    </div>
+
+    <div class="flex-row item">
+        <input #fileInput type="file" name="file" formControlName="file" accept="image/*"
+            (change)="onFileSelected($event)">
+    </div>
+
+    <div *ngIf="selectedFile" class="img-container">
+        <div mat-card-avatar class="menu-image" [ngStyle]="{ 'background-image': 'url(' + imgUrl + ')' }"></div>
+    </div>
+
+    <div style="display: flex;  place-content: space-around;">
+        <div class="item">
+            <button mat-raised-button color="primary">
+                Post Complain
+            </button>
+        </div>
+    </div>
+</form>

@@ -1,0 +1,45 @@
+<div style="max-width: 600px; width: 100%; 
+     margin:auto; border: solid 1px #e8e7ef; margin-top:10px">
+
+  <div *ngIf="categoryData" class="flex-row">
+    <span class="title">Category Name:</span>
+    <span class="value"> {{ categoryData.category }} </span>
+  </div>
+
+  <div *ngIf="categoryData" class="flex-row">
+    <span class="title">Service Type:</span>
+    <span class="value"> {{ categoryData.serviceType.serviceType }} </span>
+  </div>
+
+  <div *ngIf="categoryData" class="flex-row">
+    <span class="title">Status:</span>
+    <span class="value"> {{ categoryData.isEnable ? 'Enable' : 'Disable' }} </span>
+  </div>
+
+  <div *ngIf="categoryData" class="flex-row">
+    <span class="title">Created On:</span>
+    <span class="value">
+      {{ layoutService.getShortDateWithTime(categoryData.createdOn) }}
+    </span>
+  </div>
+
+  <div *ngIf="categoryData" class="flex-row" style="justify-content: center; min-height: 50px;
+         border-top: 1px solid lightgray">
+    <button mat-raised-button color="primary" style="max-width: 150px; max-height: 35px; margin: auto;"
+      (click)="deleteCategory()">
+      Delete
+    </button>
+  </div>
+</div>
+
+<div>
+  <app-slide-panel #slider activeSlide="horizontal" [activePane]="isFirstPage? 'left': 'right'" [showNextButton]="false"
+    [showPreviousButton]="true" (buttonClicked)="sliderClicked($event)">
+    <div firstPane>
+      <app-complain-list #complainList (complainSelected)="showComplain($event)"></app-complain-list>
+    </div>
+    <div lastPane>
+      <app-complain-details #complainDetail [complainId]="complainId"></app-complain-details>
+    </div>
+  </app-slide-panel>
+</div>

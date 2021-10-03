@@ -1,0 +1,19 @@
+.category-form {
+  display: flex;
+  flex-direction: column;
+  margin: auto;
+  width: 40%;
+  padding: 10px;
+}
+
+.item {
+  margin: 20px 0px;
+}
+
+@media (max-width: 800px) {
+  .category-form {
+    width: 100%;
+    padding: 5px;
+    max-width: 95vw;
+  }
+}

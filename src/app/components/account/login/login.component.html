@@ -1,0 +1,66 @@
+<div style="display: flex; flex-direction: row;">
+    <div class="login-left">
+        <div class="login-image"></div>
+    </div>
+
+    <div class="login-right">
+        <form #formData="ngForm" class="login-form" novalidate [formGroup]="loginForm" (ngSubmit)="onSubmit(loginForm)">
+            <div *ngIf="congratulation" style="display:flex;">
+                <span style="text-align: center; color: green; font-size: 14px;">
+                    <strong style="color:maroon; font-size: 20px;">
+                        Congratulation!
+                    </strong>
+                    {{congratulation}}
+                </span>
+            </div>
+            <div class="avatar-container">
+                <button type="button" mat-icon-button mat-cart-avatar class="login-avatar pull-right"
+                    [ngStyle]="{'background-image':'url('+ currentURL + ')'}"></button>
+                <p class="app-title">NTA Complaint Handling System</p>
+                <p class="app-title">Login</p>
+            </div>
+
+            <div class="flex-row">
+                <mat-form-field class="item">
+                    <input #userName matInput placeholder="User Email" autocomplete="off" formControlName="email" />
+                    <mat-icon matSuffix>perm_identity</mat-icon>
+                    <mat-error>Email is not in correct format.</mat-error>
+                    <mat-hint>Enter your email address</mat-hint>
+                </mat-form-field>
+            </div>
+            <div class="flex-row">
+                <mat-form-field class="item">
+                    <input matInput placeholder="Password" autocomplete="off" formControlName="password"
+                        [type]="hidePassword ? 'password' : 'text'" (blur)="hidePassword= true" />
+                    <mat-icon matSuffix (click)="hidePassword = !hidePassword">{{
+                hidePassword? 'visibility' : 'visibility_off'    
+                }}</mat-icon>
+                    <mat-error>Password length is not valid (6 to 15).</mat-error>
+                    <mat-hint>Enter your password.</mat-hint>
+                </mat-form-field>
+            </div>
+
+            <div class="content-right-align">
+                <p class="small-font">Don't have an account? Click
+                    <a routerLink="/register"> here </a>
+                    to register.</p>
+            </div>
+
+
+            <div class="content-right-align">
+                <div class="item">
+                    <button mat-raised-button color="primary" style="width: 100px;">
+                        Login
+                    </button>
+                </div>
+            </div>
+
+            <div style="display: flex;">
+                <p class="small-font">Forget password? Click
+                    <a routerLink="/forgot-password"> here </a>
+                    to get password reset link.</p>
+            </div>
+        </form>
+    </div>
+
+</div>

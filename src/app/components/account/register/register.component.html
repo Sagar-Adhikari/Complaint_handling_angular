@@ -1,0 +1,81 @@
+<div style="display: flex; flex-direction: row;">
+    <div class="register-left">
+        <div class="register-image"></div>
+    </div>
+
+    <div class="register-right">
+        <form #formData="ngForm" class="register-form" novalidate [formGroup]="registerForm"
+            (ngSubmit)="onSubmit(registerForm)">
+            <div style="display: flex; align-content: space-around;">
+                <p class="app-title">Register</p>
+            </div>
+
+            <div class="flex-row">
+                <mat-form-field class="item">
+                    <input #firstName matInput placeholder="First Name" autocomplete="off"
+                        formControlName="firstName" />
+                    <mat-error>First Name is not in correct format.</mat-error>
+                    <mat-hint>Enter your first name</mat-hint>
+                </mat-form-field>
+            </div>
+
+            <div class="flex-row">
+                <mat-form-field class="item">
+                    <input #email matInput placeholder="Last Name" autocomplete="off" formControlName="lastName" />
+                    <mat-error>Last Name is not in correct format.</mat-error>
+                    <mat-hint>Enter your last name</mat-hint>
+                </mat-form-field>
+            </div>
+
+            <div class="flex-row">
+                <mat-form-field class="item">
+                    <input #email matInput placeholder="Mobile No" autocomplete="off" formControlName="mobileNo" />
+                    <mat-error>Mobile No is not in correct format.</mat-error>
+                    <mat-hint>Enter your mobile No</mat-hint>
+                </mat-form-field>
+            </div>
+
+            <div class="flex-row">
+                <mat-form-field class="item">
+                    <input #email matInput placeholder="User Email" autocomplete="off" formControlName="email" />
+                    <mat-icon matSuffix>perm_identity</mat-icon>
+                    <mat-error>Email is not in correct format.</mat-error>
+                    <mat-hint>Enter your email address</mat-hint>
+                </mat-form-field>
+            </div>
+
+
+            <div class="flex-row">
+                <mat-form-field class="item">
+                    <input matInput placeholder="Password" autocomplete="off" formControlName="password"
+                        [type]="hidePassword ? 'password' : 'text'" (blur)="hidePassword= true" />
+                    <mat-icon matSuffix (click)="hidePassword = !hidePassword">{{
+                hidePassword? 'visibility' : 'visibility_off'    
+                }}</mat-icon>
+                    <mat-error>Password length is not valid (6 to 15).</mat-error>
+                    <mat-hint>Enter your password.</mat-hint>
+                </mat-form-field>
+            </div>
+
+            <div class="captcha-container">
+
+                <re-captcha formControlName="captcha"></re-captcha>
+            </div>
+
+            <div class="content-right-align">
+                <div class="item">
+                    <button mat-raised-button color="primary" style="width: 100px;">
+                        Register
+                    </button>
+                </div>
+            </div>
+
+            <div style="display: flex;">
+                <p class="small-font">Already have an account? Click
+                    <a routerLink="/login"> here </a>
+                    to login.</p>
+            </div>
+        </form>
+    </div>
+
+</div>

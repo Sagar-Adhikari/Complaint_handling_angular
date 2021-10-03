@@ -1,0 +1,59 @@
+.captcha-container {
+  margin: 40px 0px;
+  place-content: space-around;
+  display: flex;
+}
+
+.item-align-end {
+  display: flex;
+  place-content: flex-end;
+}
+
+.register-left {
+  display: flex;
+  width: 100%;
+  margin: auto;
+  padding: 15px;
+  height: calc(100vh - 120px);
+}
+
+.register-right {
+  display: flex;
+  width: 50%;
+}
+
+.register-form {
+  display: flex;
+  flex-direction: column;
+  margin: auto;
+  width: 90%;
+  padding: 10px;
+}
+
+.register-image {
+  width: 100%;
+  border-radius: 5%;
+  background-image: url("/assets/register-page.jpg");
+  height: 100%;
+  background-size: cover;
+  background-repeat: no-repeat;
+}
+
+.app-title {
+  font-size: 20px;
+  font-weight: 600;
+  color: navy;
+}
+
+@media (max-width: 600px) {
+  .register-form {
+    width: 100%;
+    padding: 5px;
+  }
+  .register-left {
+    display: none;
+  }
+  .register-right {
+    width: 100%;
+  }
+}

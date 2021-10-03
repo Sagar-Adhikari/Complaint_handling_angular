@@ -1,0 +1,45 @@
+<div>
+    <h2 mat-dialog-title>{{title}}</h2>
+    <form *ngIf="data.action > 1" #formData="ngForm" class="complain-form" novalidate [formGroup]="statusForm"
+        (ngSubmit)="onSubmit(statusForm)">
+
+        <div mat-dialog-content>
+            <mat-form-field *ngIf="data.action===2" class="flex-row">
+                <mat-select #sp autofocus="true" placeholder="User" formControlName="userId">
+                    <mat-option *ngFor="let item of userList" [value]="item.id">
+                        {{item.email}}
+                    </mat-option>
+                </mat-select>
+                <mat-error>Select user from list.</mat-error>
+                <mat-hint>Select user from list.</mat-hint>
+            </mat-form-field>
+
+            <mat-form-field *ngIf="data.action===5" class="flex-row">
+                <mat-label>Email:</mat-label>
+                <textarea matInput autofocus formControlName="emailId" cdkFocusInitial></textarea>
+            </mat-form-field>
+
+            <mat-form-field *ngIf="data.action===3 || data.action===4 || data.action===5" class="flex-row">
+                <mat-label>Remarks:</mat-label>
+                <textarea matInput autofocus formControlName="remarks" cdkFocusInitial></textarea>
+            </mat-form-field>
+        </div>
+        <div mat-dialog-actions>
+            <div class="flex-row">
+
+                <button *ngIf="data.action>1" type="submit" [disabled]="disabled" (click)="onSubmit(statusForm)"
+                    mat-button>Save</button>
+                <button mat-button type="button" (click)="onNoClick()">Cancel</button>
+            </div>
+        </div>
+    </form>
+    <div *ngIf="data.action===1" mat-dialog-actions>
+        <div class="flex-row">
+
+            <button *ngIf="data.action===1" type="button" [disabled]="disabled" (click)="forward()"
+                mat-button>Ok</button>
+
+            <button mat-button type="button" (click)="onNoClick()">No</button>
+        </div>
+    </div>
+</div>

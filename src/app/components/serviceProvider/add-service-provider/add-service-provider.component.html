@@ -1,0 +1,32 @@
+<form class="service-provider-form" novalidate [formGroup]="serviceProviderForm"
+  (ngSubmit)="onSubmit(serviceProviderForm)">
+
+  <div class="flex-row">
+    <mat-form-field class="mat-form-field">
+      <input #sp matInput placeholder="Service Provider Name" autocomplete="off" formControlName="name" required />
+      <mat-error>service provider is not in correct format.</mat-error>
+      <mat-hint>Enter the service provider </mat-hint>
+    </mat-form-field>
+  </div>
+  <div class="flex-row">
+    <mat-form-field class="mat-form-field">
+      <mat-label>Service Type</mat-label>
+      <mat-select formControlName="serviceTypeId" required>
+        <mat-option *ngFor="let serviceType of serviceTypeList" [value]="serviceType.id">
+          {{ serviceType.text }}
+        </mat-option>
+      </mat-select>
+    </mat-form-field>
+  </div>
+
+  <div class="flex-row">
+    <mat-slide-toggle formControlName="isEnable">Enable</mat-slide-toggle>
+  </div>
+
+  <div class="flex-row">
+    <div class="item"  style="text-align: right;">
+      <button mat-raised-button color="primary" style="width: 100px; ">Save</button>
+    </div>
+  </div>
+
+</form>

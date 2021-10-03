@@ -1,0 +1,28 @@
+<form class="category-form" novalidate [formGroup]="categoryForm" (ngSubmit)="onSubmit(categoryForm)">
+  <div class="flex-row">
+    <mat-form-field class="mat-form-field">
+      <input #categoryName matInput placeholder="Catrgory" autocomplete="off" formControlName="category" required />
+      <mat-error>category is not in correct format.</mat-error>
+      <mat-hint>Enter the category </mat-hint>
+    </mat-form-field>
+  </div>
+  <div class="flex-row">
+    <mat-form-field class="item" class="mat-form-field">
+      <mat-label>Service Type</mat-label>
+      <mat-select formControlName="serviceTypeId" required>
+        <mat-option *ngFor="let serviceType of serviceTypeList" [value]="serviceType.id">
+          {{ serviceType.text }}
+        </mat-option>
+      </mat-select>
+    </mat-form-field>
+  </div>
+  <div class="flex-row" style="flex-direction: row;">
+    <mat-slide-toggle formControlName="isEnable">Enable</mat-slide-toggle>
+  </div>
+
+  <div class="flex-row">
+    <div class="item" style="text-align: right;">
+      <button mat-raised-button color="primary" style="width: 100px; ">Save</button>
+    </div>
+  </div>
+</form>

@@ -1,0 +1,122 @@
+html,
+body {
+  height: 100%;
+  overflow: hidden;
+}
+body {
+  margin: 0;
+  font-family: Roboto, "Helvetica Neue", sans-serif;
+}
+
+router-outlet ~ * {
+  background-color: white;
+  border: 1px dashed rgba(114, 186, 94, 0.35);
+  position: absolute;
+  height: 100%;
+  width: 100%;
+  display: -webkit-box;
+  display: flex;
+  overflow: hidden;
+  overflow: auto;
+  flex-direction: column;
+}
+
+.flex-row {
+  display: flex;
+  flex-wrap: wrap;
+  flex-direction: row;
+  width: 100%;
+}
+
+.flex-row > * {
+  margin: 5px 5px;
+  max-width: 98vw;
+  flex: 1 1 100px;
+  flex-basis: 100px;
+}
+
+.form-field {
+  width: 80px !important;
+}
+
+.small-font {
+  font-size: 12px;
+}
+
+// .body-container {
+//   display: flex;
+//   align-items: flex-start;
+//   flex-direction: column;
+//   border: 1px dashed rgba(114, 186, 94, 0.35);
+//   overflow: hidden;
+//   margin: 20px;
+// }
+
+.page-title {
+  background-color: palegoldenrod;
+  background: linear-gradient(45deg, #f2fdfc, #d7e4ff);
+  display: flex;
+  width: 100%;
+  flex-direction: column;
+  overflow: hidden;
+  min-height: fit-content;
+}
+
+.page-heading {
+  display: flex;
+  align-items: center;
+  padding-left: 10px;
+  padding-right: 10px;
+  min-height: 50px;
+  justify-content: space-between;
+}
+.filter-container {
+  background-color: #edf9fd;
+  // display: flex;
+  flex-wrap: wrap;
+  flex-direction: row;
+  width: 100%;
+  justify-content: space-between;
+}
+
+.filter-container > * {
+  margin: 5px 5px;
+  max-width: 98vw;
+  flex: 0 1 300px;
+  background: transparent;
+}
+
+.content-right-align {
+  display: flex;
+  justify-content: flex-end;
+}
+
+.success-snackbar {
+  background: rgba(10, 244, 28, 0.699);
+  color: navy;
+}
+
+.error-snackbar {
+  background: maroon;
+  color: white;
+}
+
+.info-snackbar {
+  color: white;
+}
+
+.warning-snackbar {
+  background: rgba(236, 233, 36, 0.884);
+  color: navy;
+}
+
+.mat-simple-snackbar {
+  min-height: 60px;
+  justify-content: center !important;
+  flex-direction: row-reverse;
+}
+
+.mat-slide-toggle-label {
+  justify-content: flex-end !important;
+  flex-direction: row-reverse !important;
+}

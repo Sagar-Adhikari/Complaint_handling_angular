@@ -1,0 +1,86 @@
+.title {
+  min-width: 150px;
+  max-width: 180px;
+  background: linear-gradient(0deg, #d9eef8, #eaeef7);
+  min-height: 30px;
+  display: flex;
+  align-items: center;
+  border-bottom: 1px solid #a3d6f4;
+  padding-left: 5px;
+  font-size: 14px;
+}
+
+.value {
+  background: linear-gradient(0deg, #d9eef8, #eaeef7);
+  min-height: 30px;
+  display: flex;
+  align-items: center;
+  border-bottom: 1px solid #a3d6f4;
+  padding-left: 5px;
+  font-size: 14px;
+}
+
+.mat-form-field {
+  width: 100%;
+}
+
+.details {
+  display: flex;
+  width: 100%;
+}
+
+.mat-table {
+  width: 100%;
+}
+
+.mat-table-container {
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+}
+
+.mobile-label {
+  display: none;
+}
+
+@media (max-width: 800px) {
+  mat-cell:first-of-type {
+    padding-left: 0px;
+  }
+  mat-cell:last-of-type {
+    padding-right: 0px;
+  }
+  mat-row::after {
+    min-height: 0px;
+  }
+  mat-row {
+    min-height: 30px;
+    flex-direction: column;
+    align-items: start;
+    padding: 4px 24px;
+  }
+
+  .mat-header-row {
+    display: none;
+  }
+
+  .mobile-label {
+    width: 100px;
+    min-width: 100px;
+    display: inline-block;
+    font-size: 12px;
+    font-weight: bold;
+  }
+}
+
+@media (max-width: 700px) {
+  .mat-form-field {
+    width: 50%;
+  }
+}
+
+@media (max-width: 352px) {
+  .mat-form-field {
+    width: 100%;
+  }
+}

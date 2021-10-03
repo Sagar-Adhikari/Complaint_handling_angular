@@ -1,0 +1,118 @@
+<div class="page-title">
+    <div class="page-heading">
+        <div>
+            Users List
+        </div>
+        <button mat-button
+            (click)="showFilter = !showFilter">{{!showFilter? 'Show Filter Input(s)' :'Hide Filter Input(s)'}}</button>
+    </div>
+
+    <div *ngIf="showFilter" [@fadeInOut] class="filter-container">
+        <mat-form-field class="filter-container">
+            <input matInput placeholder="First Name" autocomplete="off" [(ngModel)]="firstName" />
+        </mat-form-field>
+
+        <mat-form-field class="filter-container">
+            <input matInput placeholder="Last Name" autocomplete="off" [(ngModel)]="lastName" />
+        </mat-form-field>
+
+        <mat-form-field class="filter-container">
+            <input matInput placeholder="Mobile No" autocomplete="off" [(ngModel)]="mobileNo" />
+        </mat-form-field>
+
+        <mat-form-field class="filter-container">
+            <input matInput placeholder="Email" autocomplete="off" [(ngModel)]="email" />
+        </mat-form-field>
+
+        <mat-form-field class="filter-container">
+            <mat-label>Service Provider</mat-label>
+            <mat-select [(ngModel)]="serviceProviderId" name="serviceProviderId">
+                <mat-option value="" selected></mat-option>
+                <mat-option *ngFor="let item of serviceProviderList" [value]="item.id">
+                    {{item.name}}
+                </mat-option>
+            </mat-select>
+        </mat-form-field>
+
+        <mat-form-field class="filter-container">
+            <mat-label>Role</mat-label>
+            <mat-select [(ngModel)]="roleId" name="roleId">
+                <mat-option value="" selected></mat-option>
+                <mat-option *ngFor="let item of roleList" [value]="item.id">
+                    {{item.roleName}}
+                </mat-option>
+            </mat-select>
+        </mat-form-field>
+
+        <div class="filter-container">
+            <button mat-button (click)="applyFilter()">Apply Filter</button>
+        </div>
+    </div>
+</div>
+<div class="mat-table-container mat-elevation-z8">
+
+    <mat-table [dataSource]="data" class="mat-table" [class.isMobile]="isMobile" matSort matSortActive="createdOn"
+        matSortDisableClear matSortDirection="desc">
+
+        <ng-container matColumnDef="email">
+            <mat-header-cell *matHeaderCellDef mat-sort-header>Email</mat-header-cell>
+            <mat-cell *matCellDef="let row">
+                <span class="mobile-label">Email:</span>
+                <a routerLink="/get-user/{{row.id}}"> {{row.email}}</a>
+               
+            </mat-cell>
+        </ng-container>
+
+        <ng-container matColumnDef="mobileNo">
+            <mat-header-cell *matHeaderCellDef mat-sort-header>Mobile No</mat-header-cell>
+            <mat-cell *matCellDef="let row">
+                <span class="mobile-label">Mobile No:</span>
+                {{row.mobileNo}}</mat-cell>
+        </ng-container>
+
+
+        <ng-container matColumnDef="userName">
+            <mat-header-cell mat-sort-header *matHeaderCellDef>User Name</mat-header-cell>
+            <mat-cell *matCellDef="let row">
+                <span class="mobile-label">User Name:</span>
+                {{row.firstName}} {{row.lastName}}
+            </mat-cell>
+        </ng-container>
+
+        <ng-container matColumnDef="role">
+            <mat-header-cell *matHeaderCellDef mat-sort-header>Role</mat-header-cell>
+            <mat-cell *matCellDef="let row">
+                <span class="mobile-label">Role:</span>
+                {{row.role.roleName}}</mat-cell>
+        </ng-container>
+
+
+        <ng-container matColumnDef="status">
+            <mat-header-cell *matHeaderCellDef mat-sort-header>Status</mat-header-cell>
+            <mat-cell *matCellDef="let row">
+                <span class="mobile-label">Status:</span>
+                {{row.status===true? 'Enable': 'Disable'}}</mat-cell>
+        </ng-container>
+
+
+        <ng-container matColumnDef="serviceProvider">
+            <mat-header-cell *matHeaderCellDef mat-sort-header>Service Provider</mat-header-cell>
+            <mat-cell *matCellDef="let row">
+                <span class="mobile-label">Service Provider:</span>
+
+                {{row.serviceProvider? row.serviceProvider.name :'-'}}</mat-cell>
+        </ng-container>
+
+        <ng-container matColumnDef="createdOn">
+            <mat-header-cell *matHeaderCellDef mat-sort-header>Assigned On</mat-header-cell>
+            <mat-cell *matCellDef="let row">
+                <span class="mobile-label">Assigned On:</span>
+
+                {{row.createdOn}}</mat-cell>
+        </ng-container>
+        <mat-header-row *matHeaderRowDef="displayedColumns; sticky:true"></mat-header-row>
+        <mat-row *matRowDef="let row; columns: displayedColumns;"></mat-row>
+    </mat-table>
+</div>
+
+<mat-paginator [length]="totalRows"></mat-paginator>

@@ -1,0 +1,88 @@
+<meta http-equiv="Cache-Control" content="no-cache, no-store, must-revalidate" />
+<meta http-equiv="Pragma" content="no-cache" />
+<meta http-equiv="Expires" content="0" />
+
+
+<ngx-loading [show]='loading'></ngx-loading>
+<mat-toolbar color="primary" class="app-toolbar">
+  <div style="display: flex; flex-direction: row; width: 100%;">
+    <img class="logo" [src]="'assets/nta-logo.png'" alt="logo" (click)="isLoggedIn? drawer.toggle(): undefined" />
+    <div class="toolbar-row" *ngIf="!smallScreen">
+      <span style="font-size: 22px;">नेपाल दूरसञ्चार प्राधिकरण</span>
+      <span style="font-size: 15px;">Nepal Telecommunications Authority</span>
+    </div>
+    <div class="toolbar-row" style="display: inline;">
+      <span>
+        <strong>NTA - CHS</strong>
+      </span>
+      <span>
+        - {{pageTitle}}
+      </span>
+    </div>
+    <div class="toolbar-row toolbar-user" *ngIf="!smallScreen">
+      <button mat-button *ngIf="!isLoggedIn" (click)="login()">Login</button>
+      <button mat-button [matMenuTriggerFor]="menu" *ngIf="isLoggedIn">{{email}}</button>
+      <mat-menu #menu="matMenu">
+        <button mat-menu-item (click)="changePassword()">Change Password</button>
+        <button mat-menu-item (click)="logout()">Logout</button>
+      </mat-menu>
+    </div>
+  </div>
+</mat-toolbar>
+
+
+<mat-sidenav-container fullScreen class="sidenav-container">
+  <mat-sidenav #drawer class="sidenav" fixedInViewPort="true" [attr.role]="smallScreen ? 'dialog' : 'navigation'"
+    [mode]="smallScreen? 'over': 'side'" [opened]="isLoggedIn && !smallScreen">
+
+    <mat-nav-list>
+      <a mat-list-item (click)="menuClicked('/change-password', drawer)">Change Password</a>
+      <a mat-list-item (click)="logout()">Logout</a>
+    </mat-nav-list>
+    <mat-divider></mat-divider>
+
+
+
+    <mat-nav-list *ngIf="roleId===1 || roleId===3">
+      <a mat-list-item (click)="menuClicked('/category-list', drawer)">Category List</a>
+      <a mat-list-item (click)="menuClicked('/service-provider-list', drawer)">Service Provider List</a>
+    </mat-nav-list>
+
+
+    <mat-divider *ngIf="roleId===1 || roleId===3"></mat-divider>
+
+    <mat-nav-list>
+      <a mat-list-item (click)="menuClicked('/my-complain', drawer)">My Complain</a>
+      <a mat-list-item (click)="menuClicked('/add-complain', drawer)">Add Complain</a>
+    </mat-nav-list>
+    <mat-divider></mat-divider>
+
+    <mat-nav-list *ngIf="roleId==1 || roleId===3 || roleId ===5">
+      <a mat-list-item (click)="menuClicked('/user-list', drawer)">User List</a>
+      <a mat-list-item (click)="menuClicked('/user-details', drawer)">User Details</a>
+
+    </mat-nav-list>
+    <mat-divider *ngIf="roleId==1 || roleId===3 || roleId ===5"></mat-divider>
+
+
+    <mat-nav-list *ngIf="roleId==1 || roleId>2">
+      <a mat-list-item (click)="menuClicked('/complain-list', drawer)">Complain List</a>
+      <a mat-list-item (click)="menuClicked('/view-complain', drawer)">Complain Details</a>
+    </mat-nav-list>
+    <mat-divider *ngIf="roleId==1 || roleId>2"></mat-divider>
+
+    <mat-nav-list>
+      <a mat-list-item (click)="menuClicked('/complain-report', drawer)">Complaint Reports</a>
+      <a mat-list-item (click)="menuClicked('/monthly-report', drawer)">Monthly Reports</a>
+      <a mat-list-item (click)="menuClicked('/summary-report', drawer)">Summary Report</a>
+
+    </mat-nav-list>
+    <mat-divider *ngIf="roleId==1 || roleId===3"></mat-divider>
+
+
+  </mat-sidenav>
+
+  <mat-sidenav-content [@routeAnimations]="prepareRoute(outlet)" class="sidenav-content">
+    <router-outlet #outlet="outlet"></router-outlet>
+  </mat-sidenav-content>
+</mat-sidenav-container>

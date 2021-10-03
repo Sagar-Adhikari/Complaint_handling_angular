@@ -1,0 +1,19 @@
+.example-month-picker .mat-calendar-period-button {
+  pointer-events: none;
+}
+
+.example-month-picker .mat-calendar-arrow {
+  display: none;
+}
+.graph-container {
+  width: 100%;
+}
+
+.canvas-graph {
+  max-width: 1200px;
+  margin: auto;
+}
+
+::ng-deep .cdk-overlay-connected-position-bounding-box{
+  overflow: auto;
+}

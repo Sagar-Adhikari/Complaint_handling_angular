@@ -1,0 +1,78 @@
+<div class="flex-row" style="max-width: 800px;">
+  <mat-form-field class="form-field" style="min-width: 200px;">
+      <input matInput #fromDt [matDatepicker]="dateFrom" placeholder="From date" [(ngModel)]="fDate" required
+          (dateChange)="dateChange(fromDt.value,'From')" autocomplete="off">
+      <mat-datepicker-toggle matSuffix [for]="dateFrom"></mat-datepicker-toggle>
+      <mat-datepicker #dateFrom></mat-datepicker>
+  </mat-form-field>
+
+  <mat-form-field class="form-field" style="min-width: 200px;">
+      <input matInput #toDt [matDatepicker]="dateTo" placeholder="To date" [(ngModel)]="tDate" required
+          (dateChange)="dateChange(toDt.value,'To')" autocomplete="off">
+      <mat-datepicker-toggle matSuffix [for]="dateTo"></mat-datepicker-toggle>
+      <mat-datepicker #dateTo></mat-datepicker>
+  </mat-form-field>
+
+  <div style="min-width: 200px;">
+      <button style="background-color: #3f51b5;color: white; margin: inherit;" mat-button (click)="exportToPdf(data)">Export As
+          PDF</button>
+  </div>
+</div>
+
+
+<div class="mat-table-container">
+  <mat-table #table [dataSource]="data" class="mat-table" [class.isMobile]="isMobile" matSort [matSortActive]="sortField"
+      matSortDisableClear [matSortDirection]="sortDirection">
+
+      <ng-container matColumnDef="serviceProviderName">
+          <mat-header-cell *matHeaderCellDef mat-sort-header>Service Provider</mat-header-cell>
+          <mat-cell *matCellDef="let row">
+              <span class="mobile-label">Service Provider:</span>
+              {{row.serviceProviderName}}
+          </mat-cell>
+      </ng-container>
+
+      <ng-container matColumnDef="forwarded">
+          <mat-header-cell *matHeaderCellDef mat-sort-header>Forwarded</mat-header-cell>
+          <mat-cell *matCellDef="let row">
+              <span class="mobile-label">Forwarded:</span>
+              {{row.forwarded}}
+          </mat-cell>
+      </ng-container>
+
+      <ng-container matColumnDef="pending">
+          <mat-header-cell *matHeaderCellDef mat-sort-header>Pending</mat-header-cell>
+          <mat-cell *matCellDef="let row">
+              <span class="mobile-label">Pending:</span>
+              {{row.pending}}
+          </mat-cell>
+      </ng-container>
+
+      <ng-container matColumnDef="progress">
+          <mat-header-cell *matHeaderCellDef mat-sort-header>Progress</mat-header-cell>
+          <mat-cell *matCellDef="let row">
+              <span class="mobile-label">Progress:</span>
+              {{row.progress}}
+          </mat-cell>
+      </ng-container>
+
+      <ng-container matColumnDef="resolved">
+          <mat-header-cell *matHeaderCellDef mat-sort-header>Resolved</mat-header-cell>
+          <mat-cell *matCellDef="let row">
+              <span class="mobile-label">Resolved:</span>
+              {{row.resolved}}</mat-cell>
+      </ng-container>
+
+      <ng-container matColumnDef="total">
+          <mat-header-cell *matHeaderCellDef mat-sort-header>Total</mat-header-cell>
+          <mat-cell *matCellDef="let row">
+              <span class="mobile-label">Total:</span>
+              {{row.total}}</mat-cell>
+      </ng-container>
+
+
+      <mat-header-row *matHeaderRowDef="displayedColumns; sticky:true"></mat-header-row>
+      <mat-row *matRowDef="let row; columns: displayedColumns;"></mat-row>
+  </mat-table>
+
+</div>

@@ -1,0 +1,154 @@
+<div  class="page-title">
+    <div class="page-heading">
+        <div>
+            {{pageTitle}}
+        </div>
+        <button mat-button *ngIf="data"
+            (click)="showFilter = !showFilter">{{!showFilter? 'Show Filter Input(s)' :'Hide Filter Input(s)'}}</button>
+    </div>
+
+    <div *ngIf="showFilter" [@fadeInOut] class="filter-container">
+        <mat-form-field class="filter-container">
+            <input matInput placeholder="Ticket No" autocomplete="off" [(ngModel)]="ticketNo" />
+        </mat-form-field>
+
+        <mat-form-field *ngIf="listType!=='service-provider'" class="filter-container">
+            <mat-label>Service Provider</mat-label>
+            <mat-select [(ngModel)]="serviceProviderId" name="serviceProviderId"
+                (selectionChange)="serviceProviderChanged()">
+                <mat-option value="" selected></mat-option>
+                <mat-option *ngFor="let item of serviceProviderList" [value]="item.id">
+                    {{item.name}}
+                </mat-option>
+            </mat-select>
+        </mat-form-field>
+
+        <mat-form-field *ngIf="listType!=='category'" class="filter-container">
+            <mat-label>Category</mat-label>
+            <mat-select [(ngModel)]="categoryId" name="categoryId">
+                <mat-option value="" selected></mat-option>
+                <mat-option *ngFor="let item of categoryList" [value]="item.id">
+                    {{item.category}}
+                </mat-option>
+            </mat-select>
+        </mat-form-field>
+
+        <mat-form-field class="example-full-width">
+            <mat-label>From Date</mat-label>
+            <input matInput [max]="maxDate" [matDatepicker]="fdPicker" [formControl]="fromDate"
+                (dateInput)="formDateChanged($event)" (dateChange)="formDateChanged( $event)" autoComplete="off">
+            <mat-datepicker-toggle matSuffix [for]="fdPicker"></mat-datepicker-toggle>
+            <mat-datepicker #fdPicker></mat-datepicker>
+        </mat-form-field>
+
+        <mat-form-field class="example-full-width">
+            <mat-label>To Date</mat-label>
+            <input matInput [min]="minDate" [max]="maxDate" [matDatepicker]="tDpicker" [formControl]="toDate"
+                autoComplete="off">
+            <mat-datepicker-toggle matSuffix [for]="tDpicker"></mat-datepicker-toggle>
+            <mat-datepicker #tDpicker></mat-datepicker>
+        </mat-form-field>
+
+        <mat-form-field *ngIf="listType!=='status'" class="filter-container">
+            <mat-label>Status</mat-label>
+            <mat-select [(ngModel)]="statusId" name="statusId">
+                <mat-option value="" selected></mat-option>
+                <mat-option *ngFor="let item of statusList" [value]="item.id">
+                    {{item.status}}
+                </mat-option>
+            </mat-select>
+        </mat-form-field>
+
+        <mat-form-field class="filter-container">
+            <input matInput placeholder="Customer Email" autocomplete="off" [(ngModel)]="createrEmail" />
+        </mat-form-field>
+
+        <mat-form-field class="filter-container">
+            <input matInput placeholder="Customer Mobile No" autocomplete="off" [(ngModel)]="mobileNo" />
+        </mat-form-field>
+
+        <div class="filter-container">
+            <button mat-button (click)="applyFilter()">Apply Filter</button>
+        </div>
+    </div>
+</div>
+<div class="mat-table-container mat-elevation-z8">
+    <mat-table #table [dataSource]="data" class="mat-table" [class.isMobile]="isMobile" matSort matSortActive="id"
+        matSortDisableClear matSortDirection="desc">
+        <!-- Id or Ticket No Column -->
+        <ng-container matColumnDef="id">
+            <mat-header-cell *matHeaderCellDef mat-sort-header>Ticket</mat-header-cell>
+            <mat-cell *matCellDef="let row">
+                <span class="mobile-label">Ticket No:</span>
+                <!-- <mat-nav-list> -->
+                    <a mat-button (click)="getComplain(row.id)" style="color: blue;" > {{row.id}}</a>
+                <!-- </mat-nav-list> -->
+           
+            </mat-cell>
+        </ng-container>
+
+
+        <!-- Created on Column -->
+        <ng-container matColumnDef="createdOn">
+            <mat-header-cell *matHeaderCellDef mat-sort-header>Created On</mat-header-cell>
+            <mat-cell *matCellDef="let row">
+                <span class="mobile-label">Created On:</span>
+                {{row.createdOn}}
+            </mat-cell>
+        </ng-container>
+
+
+        <!-- Complain Column -->
+        <ng-container matColumnDef="complain">
+            <mat-header-cell *matHeaderCellDef>Complain</mat-header-cell>
+            <mat-cell *matCellDef="let row">
+                <span class="mobile-label">Complain:</span>
+
+                {{row.complain}}
+
+            </mat-cell>
+        </ng-container>
+
+        <!-- Service Provider Name Column-->
+        <ng-container matColumnDef="serviceProvider">
+            <mat-header-cell *matHeaderCellDef mat-sort-header>Service Provider</mat-header-cell>
+            <mat-cell *matCellDef="let row">
+                <span class="mobile-label">Service Provider:</span>
+
+                {{row.serviceProvider.name}}
+            </mat-cell>
+        </ng-container>
+
+        <!-- Status Column -->
+        <ng-container matColumnDef="status">
+            <mat-header-cell *matHeaderCellDef mat-sort-header>Status</mat-header-cell>
+            <mat-cell *matCellDef="let row">
+                <span class="mobile-label">Status:</span>
+                {{row.status.status}}
+
+            </mat-cell>
+        </ng-container>
+
+        <!-- Created By Column -->
+        <ng-container matColumnDef="createdBy">
+            <mat-header-cell *matHeaderCellDef mat-sort-header>Created By</mat-header-cell>
+            <mat-cell *matCellDef="let row">
+                <span class="mobile-label">Created By:</span>
+                {{row.createdByUser.email}}</mat-cell>
+        </ng-container>
+
+        <!-- Category Column -->
+        <ng-container matColumnDef="category">
+            <mat-header-cell *matHeaderCellDef mat-sort-header>Category</mat-header-cell>
+            <mat-cell *matCellDef="let row">
+                <span class="mobile-label">Category:</span>
+                {{row.category.category}}</mat-cell>
+        </ng-container>
+
+
+        <mat-header-row *matHeaderRowDef="displayedColumns; sticky:true"></mat-header-row>
+        <mat-row *matRowDef="let row; columns: displayedColumns;"></mat-row>
+    </mat-table>
+</div>
+
+<mat-paginator [length]="totalRows"></mat-paginator>

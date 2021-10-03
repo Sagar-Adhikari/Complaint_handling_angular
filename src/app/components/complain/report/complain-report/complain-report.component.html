@@ -1,0 +1,39 @@
+<div>
+    <div class="flex-row" style="max-width: 800px; margin: auto;">
+        <mat-form-field style="min-width: 200px;">
+            <mat-label>chart type</mat-label>
+            <mat-select [(ngModel)]="chartId" name="chartId" (selectionChange)="chartTypeChanged($event.value)">
+                <mat-option *ngFor="let item of chartList" [value]="item.id">
+                    {{item.name}}
+                </mat-option>
+            </mat-select>
+        </mat-form-field>
+
+        <mat-form-field class="form-field" style="min-width: 200px;">
+            <input matInput #fromDt [matDatepicker]="dateFrom" placeholder="From date" [formControl]="fromDate" required
+                (dateInput)="dateChanged($event)" autocomplete="off" />
+            <mat-datepicker-toggle matSuffix [for]="dateFrom"></mat-datepicker-toggle>
+            <mat-datepicker #dateFrom></mat-datepicker>
+        </mat-form-field>
+
+
+        <mat-form-field class="form-field" style="min-width: 200px;">
+            <input matInput #toDt [matDatepicker]="dateTo" placeholder="To date" [formControl]="toDate" required
+                (dateInput)="dateChanged($event)" autocomplete="off" />
+            <mat-datepicker-toggle matSuffix [for]="dateTo"></mat-datepicker-toggle>
+            <mat-datepicker #dateTo></mat-datepicker>
+        </mat-form-field>
+    </div>
+
+    <div *ngIf="loading" class="flex-row">
+        <mat-progress-bar class="example-margin" color="primary" mode="query">
+        </mat-progress-bar>
+    </div>
+
+
+    <div class="graph-container">
+        <canvas class="canvas-graph" baseChart [datasets]="barChartData" [labels]="barChartLabels"
+            [options]="barChartOptions" [legend]="barChartLegend" [chartType]="barChartType"></canvas>
+    </div>
+
+</div>

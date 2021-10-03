@@ -1,0 +1,189 @@
+<div style="max-width: 600px; width: 100%; 
+     margin:auto; border: solid 1px #e8e7ef; margin-top:10px">
+
+    <div class="flex-row">
+        <span class="title">Ticket:</span>
+        <div style="width:100%">
+            <mat-form-field class="mat-form-field">
+                <input matInput placeholder="Ticket No" autocomplete="off" [(ngModel)]="searchId" (change)="search()" />
+                <button *ngIf="searchId" mat-button matSuffix mat-icon-button aria-label="Clear"
+                    (click)="searchId='';search();" tabindex="-1">
+                    <mat-icon>close</mat-icon>
+                </button>
+                <button mat-button matSuffix mat-icon-button aria-label="Clear" (click)="search()" tabindex="-1">
+                    <mat-icon>search</mat-icon>
+                </button>
+            </mat-form-field>
+        </div>
+
+    </div>
+
+    <div *ngIf="data" class="flex-row">
+        <span class="title">Service Provider:</span>
+        <span class="value"> {{data.serviceProvider.name}} </span>
+    </div>
+
+    <div *ngIf="data" class="flex-row">
+        <span class="title">Category:</span>
+        <span class="value"> {{data.category.category}} </span>
+    </div>
+
+    <div *ngIf="(data && data.serviceProvider.id!=1)" class="flex-row">
+        <span class="title">Mobile No:</span>
+        <span class="value"> {{data.mobileOrUserId}} </span>
+    </div>
+
+    <div *ngIf="(data && data.serviceProvider.id!=1)" class="flex-row">
+        <span class="title">Service Provider Ticket No:</span>
+        <span class="value"> {{data.serviceProviderTicketNo}} </span>
+    </div>
+
+
+    <div *ngIf="data" class="flex-row">
+        <span class="title">Complain:</span>
+        <span class="value"> {{data.complain}} </span>
+    </div>
+
+    <div *ngIf="data" class="flex-row">
+        <span class="title">Status:</span>
+        <span class="value"> {{data.status.status}} </span>
+    </div>
+
+
+    <div *ngIf="data" class="flex-row">
+        <span class="title">Created On:</span>
+        <span class="value"> {{layoutService.getShortDateWithTime(data.createdOn)}} </span>
+    </div>
+
+
+    <div *ngIf="data" class="flex-row">
+        <span class="title">Created By:</span>
+        <span class="value">
+            {{data.createdByUser.firstName}}
+            {{data.createdByUser.lastName}} / {{data.createdByUser.email}}
+        </span>
+    </div>
+
+
+    <div *ngIf="data && data.forwardedOn" class="flex-row">
+        <span class="title">Forwarded By:</span>
+        <span class="value">
+            {{layoutService.getShortDateWithTime(data.forwardedOn)}}
+        </span>
+    </div>
+
+
+    <div *ngIf="data && data.assignToUser" class="flex-row">
+        <span class="title">Assigned To:</span>
+        <span class="value">
+
+            {{data.assignToUser.firstName}}
+            {{data.assignToUser.lastName}} / {{data.assignToUser.email}}
+
+        </span>
+    </div>
+
+
+    <div *ngIf="data && data.assignToUser" class="flex-row">
+        <span class="title">Assigned On:</span>
+        <span class="value">
+            {{layoutService.getShortDateWithTime(data.assignedOn)}}
+        </span>
+    </div>
+
+
+    <div *ngIf="data && data.closedByUser" class="flex-row">
+        <span class="title">Resolved Remarks:</span>
+        <span class="value"> {{data.closedRemarks}} </span>
+    </div>
+
+
+    <div *ngIf="data && data.closedByUser" class="flex-row">
+        <span class="title">Closed On:</span>
+        <span class="value">
+            {{layoutService.getShortDateWithTime(data.closedOn)}}
+        </span>
+    </div>
+
+    <div *ngIf="data && data.closedByUser" class="flex-row">
+        <span class="title">Closed By:</span>
+        <span class="value">
+
+            {{data.closedByUser.firstName}}
+            {{data.closedByUser.lastName}} / {{data.closedByUser.email}}
+
+        </span>
+    </div>
+
+    <div *ngIf="data" class="flex-row">
+        <span class="title">Image:</span>
+        <span style="
+            background-size: cover;
+            width: 150px;
+            height: 150px;
+            background-position: center;" [ngStyle]="{'background-image': 'url('+ imgUrl +')'}"> {{data.filePath}}
+        </span>
+
+    </div>
+</div>
+
+
+<div *ngIf="data" class="flex-row" style="justify-content: space-around;">
+    <button *ngIf="((roleId===3 || roleId ===4) && (data.status.id===1))" mat-button mat-raised-button color="primary"
+        style="max-width: 100px;" (click)="openDialog(1)">
+        Forward </button>
+    <button
+        *ngIf="((roleId ===5) && (data.serviceProvider.id === serviceProviderId)) && (data.status.id ===2 || data.status.id ===3 )"
+        mat-button mat-raised-button (click)="openDialog(2)" color="primary" style="max-width: 100px;">
+        Assign </button>
+    <button
+        *ngIf="((roleId ===5 || roleId ===6)  && (data.serviceProvider.id === serviceProviderId))  && (data.status.id ===2 || data.status.id ===3 )"
+        mat-raised-button (click)="openDialog(3)" color="primary" style="max-width: 100px;">
+        Follow Up </button>
+
+    <button
+        *ngIf="((roleId===3 || roleId ===4 || roleId===5 || roleId ===6))"
+        mat-raised-button (click)="openDialog(5)" color="primary" style="max-width: 100px;">
+        Action </button>
+
+    <button *ngIf="((roleId ===3  || roleId ===4) && (data.status.id ===1))" mat-raised-button (click)="openDialog(4)"
+        color="primary" style="max-width: 100px;">
+        Close </button>
+
+    <button *ngIf="(roleId ===5  || roleId ===6) && (data.status.id ===2 || data.status.id===3)" mat-raised-button
+        (click)="openDialog(4)" color="primary" style="max-width: 100px;"> Close
+    </button>
+</div>
+<div *ngIf="data && data.followUp.length >0" class="flex-row">
+    <span style="color: navy;">Followup Details:</span>
+</div>
+<div *ngIf="data && data.followUp.length >0" class="details">
+    <div class="mat-table-container mat-elevation-z8">
+        <mat-table [dataSource]="data.followUp" class="mat-table" [class.isMobile]="isMobile">
+            <ng-container matColumnDef="createdOn">
+                <mat-header-cell *matHeaderCellDef>Followup On</mat-header-cell>
+                <mat-cell *matCellDef="let row">
+                    <span class="mobile-label">Followup on:</span>
+                    {{ layoutService.getShortDateWithTime( row.createdOn)}}
+                </mat-cell>
+            </ng-container>
+
+            <ng-container matColumnDef="remarks">
+                <mat-header-cell *matHeaderCellDef>Remarks</mat-header-cell>
+                <mat-cell *matCellDef="let row">
+                    <span class="mobile-label">Remarks:</span>
+                    {{row.remarks}}</mat-cell>
+            </ng-container>
+
+            <ng-container matColumnDef="user">
+                <mat-header-cell *matHeaderCellDef>Followup by</mat-header-cell>
+                <mat-cell *matCellDef="let row">
+                    <span class="mobile-label">Followup by</span>
+                    {{row.followUpByUser.email}}</mat-cell>
+            </ng-container>
+
+            <mat-header-row *matHeaderRowDef="followupColumns; sticky:true"></mat-header-row>
+            <mat-row *matRowDef="let row; columns: followupColumns;"></mat-row>
+        </mat-table>
+    </div>
+</div>

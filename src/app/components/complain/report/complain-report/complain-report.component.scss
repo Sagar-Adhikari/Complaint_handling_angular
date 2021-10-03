@@ -1,0 +1,12 @@
+.graph-container {
+  width: 100%;
+}
+
+.canvas-graph {
+  max-width: 1200px;
+  margin: auto;
+}
+
+::ng-deep .cdk-overlay-connected-position-bounding-box {
+  overflow: auto;
+}

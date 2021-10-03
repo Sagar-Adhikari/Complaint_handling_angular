@@ -1,0 +1,18 @@
+<div >
+  <div class="flex-row" style="max-width: 200px; margin: auto;">
+      <mat-form-field>
+          <mat-label> Year and Month</mat-label>
+          <input matInput [matDatepicker]="dp" [formControl]="dateInput">
+          <mat-datepicker-toggle matSuffix [for]="dp"></mat-datepicker-toggle>
+          <mat-datepicker #dp startView="multi-year" (yearSelected)="chosenYearHandler($event)"
+              (monthSelected)="chosenMonthHandler($event, dp)" panelClass="example-month-picker">
+          </mat-datepicker>
+      </mat-form-field>
+  </div>
+
+  <div class="graph-container">
+      <canvas class="canvas-graph" baseChart [datasets]="barChartData" [labels]="barChartLabels"
+          [options]="barChartOptions" [legend]="barChartLegend" [chartType]="barChartType"></canvas>
+  </div>
+
+</div>

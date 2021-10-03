@@ -1,0 +1,101 @@
+.mat-table {
+  width: 100%;
+}
+
+.mat-table-container {
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+}
+
+.mat-column-userName {
+  min-width: 200px;
+}
+
+.mat-column-email {
+  min-width: 200px;
+}
+
+.mat-column-mobileNo {
+  min-width: 100px;
+}
+
+.mat-column-role {
+  min-width: 100px;
+}
+
+.mat-column-serviceProvider {
+  min-width: 100px;
+}
+
+.mat-column-createdOn {
+  min-width: 100px;
+}
+
+.data-loading-shade {
+  position: absolute;
+  top: 0;
+  left: 0;
+  bottom: 0px;
+  right: 0;
+  background: rgba(0, 0, 0, 0.1);
+  z-index: 99999999;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.mobile-label {
+  display: none;
+}
+
+@media (max-width: 800px) {
+  mat-cell:first-of-type {
+    padding-left: 0px;
+  }
+
+  mat-cell:last-of-type {
+    padding-right: 0px;
+  }
+  mat-row::after {
+    min-height: 0px;
+  }
+
+  mat-row {
+    min-height: 30px;
+    flex-direction: column;
+    align-items: start;
+    padding: 4px 24px;
+  }
+
+  .mat-header-row {
+    display: none;
+  }
+
+  .mobile-label {
+    width: 100px;
+    min-width: 100px;
+    display: inline-block;
+    font-size: 12px;
+    font-weight: bold;
+  }
+
+  .mat-column-email {
+    min-width: inherit;
+    max-width: inherit;
+  }
+
+  .mat-column-role {
+    min-width: inherit;
+    max-width: inherit;
+  }
+
+  .mat-column-serviceProvider {
+    min-width: inherit;
+    max-width: inherit;
+  }
+
+  .mat-column-userName {
+    min-width: inherit;
+  }
+}

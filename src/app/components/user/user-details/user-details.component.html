@@ -1,0 +1,84 @@
+<div style="max-width: 600px; width: 100%; 
+     margin:auto; border: solid 1px #e8e7ef; margin-top:10px">
+
+    <div class="flex-row">
+        <span class="title">Email:</span>
+        <mat-form-field style="width: 120px;">
+            <mat-label>Email</mat-label>
+            <input matInput autofocus autocomplete="off" [(ngModel)]="email" (change)="search()" />
+            <button mat-button *ngIf="email" matSuffix mat-icon-button aria-label="Clear" (click)="email='';search();">
+                <mat-icon>close</mat-icon>
+            </button>
+            <button type="button" mat-button matSuffix mat-icon-button aria-label="Clear" (click)="search()"
+                tabindex="-1">
+                <mat-icon>search</mat-icon>
+            </button>
+        </mat-form-field>
+    </div>
+
+    <div *ngIf="user" class="flex-row">
+        <span class="title">User Name:</span>
+        <span class="value"> {{user.firstName}} {{user.lastName}} </span>
+    </div>
+
+    <div *ngIf="user" class="flex-row">
+        <span class="title">Mobile No:</span>
+        <span class="value"> {{user.mobileNo}} </span>
+    </div>
+
+    <div *ngIf="user" class="flex-row">
+        <span class="title">Role:</span>
+        <span class="value"> {{user.role.roleName}} </span>
+    </div>
+
+    <div *ngIf="user" class="flex-row">
+        <span class="title">Email Verified:</span>
+        <span class="value"> {{user.emailVerified? 'Yes': 'No'}} </span>
+    </div>
+
+
+    <div *ngIf="user" class="flex-row">
+        <span class="title">Status:</span>
+        <span class="value"> {{user.status? 'Enable':'Disable'}} </span>
+    </div>
+
+    <div *ngIf="user  && user.serviceProvider" class="flex-row">
+        <span class="title">Service Provider:</span>
+        <span class="value"> {{user.serviceProvider.name}} </span>
+    </div>
+    <div *ngIf="user" class="flex-row" style="justify-content: center; min-height: 50px;
+        border-top: 1px solid lightgray">
+
+        <button mat-raised-button color="primary" [matMenuTriggerFor]="menu"
+            style="max-width: 150px; max-height: 35px; margin: auto;">Set User Role</button>
+
+
+    </div>
+</div>
+
+
+<div>
+    <app-slide-panel #slider activeSlide="horizontal" [activePane]="isTopVisible? 'left': 'right'"
+        [showNextButton]="false" [showPreviousButton]="true" (buttonClicked)="sliderClicked($event)">
+
+        <div firstPane>
+            <app-complain-list #complainList (complainSelected)="showComplain($event)"></app-complain-list>
+        </div>
+        <div lastPane>
+            <app-complain-details #complainDetail [complainId]="complainId"></app-complain-details>
+        </div>
+    </app-slide-panel>
+</div>
+
+
+<mat-menu #menu="matMenu">
+    <div style="width:100%; color:navy; border-bottom: 1px solid maroon; ">
+        <span style="padding: 5px;"> Select one role to assign</span>
+    </div>
+    <button *ngIf="roleId===1" mat-menu-item (click)="setAsNTAAdmin()">As NTA Admin</button>
+    <button *ngIf="roleId===3" mat-menu-item (click)="setAsNTAUser()">As NTA User</button>
+    <button *ngIf="roleId===3" mat-menu-item (click)="openDialog()">As Service Provider Admin</button>
+    <button *ngIf="roleId===5" mat-menu-item (click)="setAsSPUser()">As Service Provider User</button>
+    <button *ngIf="user && user.role.id !== 2" mat-menu-item (click)="resetRole()">As Normal User</button>
+
+</mat-menu>

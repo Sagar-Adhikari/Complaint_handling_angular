@@ -1,0 +1,23 @@
+<div>
+    <h2 mat-dialog-title>{{title}}</h2>
+    <form #formData="ngForm" class="complain-form" novalidate [formGroup]="spForm" (ngSubmit)="onSubmit(spForm)">
+
+        <div mat-dialog-content>
+            <mat-form-field class="flex-row">
+                <mat-select #sp autofocus="true" placeholder="User" formControlName="serviceProviderId">
+                    <mat-option *ngFor="let item of serviceProviderList" [value]="item.id">
+                        {{item.name}}
+                    </mat-option>
+                </mat-select>
+                <mat-error>Select service provider from list.</mat-error>
+                <mat-hint>Select service provider from list.</mat-hint>
+            </mat-form-field>
+        </div>
+        <div mat-dialog-actions>
+            <div class="flex-row">
+                <button type="button" [disabled]="!spForm.valid" (click)="onSubmit(spForm)" mat-button>Save</button>
+                <button mat-button type="button" (click)="onNoClick()">Cancel</button>
+            </div>
+        </div>
+    </form>
+</div>
